@@ -1,33 +1,28 @@
 {
   "name": "OpenGL Development Environment",
-  "image": "ubuntu:20.04",
-  "runArgs": ["--device=/dev/dri"],
-
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu-20.04",
   "features": {
     "ghcr.io/devcontainers/features/docker-in-docker:1": {}
   },
-
   "customizations": {
     "vscode": {
       "extensions": [
         "ms-vscode.cpptools",
         "ms-vscode.cmake-tools",
         "twxs.cmake",
-        "ms-azuretools.vscode-docker"
+        "ms-azuretools.vscode-docker",
+        "streetsidesoftware.code-spell-checker"
       ]
     }
   },
-
-  "postCreateCommand": "bash .devcontainer/setup.sh",
-
+  "postCreateCommand": "bash /workspace/.devcontainer/setup.sh",
   "mounts": [
     "source=/tmp/.X11-unix,target=/tmp/.X11-unix,type=bind",
     "source=${localWorkspaceFolder},target=/workspace,type=bind"
   ],
-
   "remoteUser": "vscode",
-
   "settings": {
-    "terminal.integrated.defaultProfile.linux": "bash"
+    "terminal.integrated.defaultProfile.linux": "bash",
+    "cmake.configureOnOpen": true
   }
 }
