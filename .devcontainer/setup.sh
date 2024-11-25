@@ -1,6 +1,8 @@
 #!/bin/bash
 
-# Update and install dependencies
+echo "Starting setup for OpenGL Development Environment..."
+
+# Update the package list and install dependencies
 sudo apt update && sudo apt install -y \
     build-essential \
     cmake \
@@ -18,15 +20,19 @@ sudo apt update && sudo apt install -y \
     libxcursor-dev \
     libxxf86vm-dev
 
-# Clone and build GLAD
+# Install GLAD
+echo "Installing GLAD..."
 git clone https://github.com/Dav1dde/glad.git /tmp/glad
 cd /tmp/glad
 cmake -B build
 cmake --build build
-sudo cp build/glad/glad.h /usr/include/
+sudo cp include/glad/glad.h /usr/include/
+sudo cp src/glad.c /usr/src/
 sudo cp build/glad/libglad.a /usr/lib/
-
-# Clean up
 rm -rf /tmp/glad
 
-echo "Setup complete!"
+# Verify OpenGL setup
+echo "Verifying OpenGL setup..."
+glxinfo | grep "OpenGL"
+
+echo "Setup complete. You're ready to develop with OpenGL!"
